@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from 'react'
+import { Layout } from 'antd'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { DocumentTreeWithRouter } from './components/DocumentTree'
+import { DocumentWithRouter } from './components/Document'
+import { DocumentTypeTree } from './components/DocumentTypeTree'
 
-const App: React.FC = () => {
+const { Sider, Header, Content } = Layout
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Layout>
+        <Sider width={200} style={{ background: '#fff' }}>
+          <Layout style={{ background: '#fff' }}>
+            <Header style={{ backgroundColor: '#3B3B98', color: '#fff' }}>
+              NUWT
+            </Header>
+            <Content>
+              <DocumentTreeWithRouter />
+              <DocumentTypeTree />
+            </Content>
+          </Layout>
+        </Sider>
+        <Layout>
+          <Header style={{ backgroundColor: '#3B3B98', color: '#fff' }}>
+            Header
+          </Header>
+          <Content>
+            <Switch>
+              <Route path="/document/:id">
+                <DocumentWithRouter />
+              </Route>
+            </Switch>
+          </Content>
+        </Layout>
+      </Layout>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
